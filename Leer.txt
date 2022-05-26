@@ -1,0 +1,1 @@
+No pude hacerlo de la forma que se hizo en clase, lo estoy modificando a partir del ejemplo de la pagina https://www.w3schools.com/.
