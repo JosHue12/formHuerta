@@ -12,28 +12,38 @@
 <body>
 
 <?php
-// define variables and set to empty values
-$nameErr = $emailErr = $genderErr = $websiteErr = "";
-$name = $email = $gender = $comment = $website = "";
+// Inicio las variables vacias
+$nameErr = $lastNameErr = $emailErr = $genderErr = $websiteErr = "";
+$name = $lastName = $email = $gender = $comment = $website = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   if (empty($_POST["name"])) {
-    $nameErr = "Name is required";
+    $nameErr = "El nombre es requerido";
   } else {
     $name = test_input($_POST["name"]);
     // check if name only contains letters and whitespace
     if (!preg_match("/^[a-zA-Z-' ]*$/",$name)) {
-      $nameErr = "Only letters and white space allowed";
+      $nameErr = "Solo se permiten letras y espacios";
+    }
+  }
+
+  if (empty($_POST["lastName"])) {
+    $lastNameErr = "El apellido es requerido";
+  } else {
+    $lastName = test_input($_POST["lastName"]);
+    // check if last name only contains letters and whitespace
+    if (!preg_match("/^[a-zA-Z-' ]*$/",$lastName)) {
+      $lastNameErr = "Solo se permiten letras y espacios";
     }
   }
   
   if (empty($_POST["email"])) {
-    $emailErr = "Email is required";
+    $emailErr = "El mail es requerido";
   } else {
     $email = test_input($_POST["email"]);
     // check if e-mail address is well-formed
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-      $emailErr = "Invalid email format";
+      $emailErr = "Mail invalido";
     }
   }
     
@@ -43,7 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $website = test_input($_POST["website"]);
     // check if URL address syntax is valid (this regular expression also allows dashes in the URL)
     if (!preg_match("/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i",$website)) {
-      $websiteErr = "Invalid URL";
+      $websiteErr = "URL invalido";
     }
   }
 
@@ -54,7 +64,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   }
 
   if (empty($_POST["gender"])) {
-    $genderErr = "Gender is required";
+    $genderErr = "El genero es requerido";
   } else {
     $gender = test_input($_POST["gender"]);
   }
@@ -69,10 +79,12 @@ function test_input($data) {
 ?>
 
 <h2>Formulario PHP c/Bootstrap</h2>
-<p><span class="error">* Campo requerido</span></p>
 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">  
   Nombre: <input type="text" name="name" value="<?php echo $name;?>">
   <span class="error">* <?php echo $nameErr;?></span>
+  <br><br>
+  Apellido: <input type="text" name="lastName" value="<?php echo $lastName;?>">
+  <span class="error">* <?php echo $lastNameErr;?></span>
   <br><br>
   Mail: <input type="text" name="email" value="<?php echo $email;?>">
   <span class="error">* <?php echo $emailErr;?></span>
@@ -80,28 +92,30 @@ function test_input($data) {
   Sitio Web: <input type="text" name="website" value="<?php echo $website;?>">
   <span class="error"><?php echo $websiteErr;?></span>
   <br><br>
-  Comentario: <textarea name="comment" rows="5" cols="40"><?php echo $comment;?></textarea>
+  Comentario: <br>
+  <textarea name="comment" rows="5" cols="40"><?php echo $comment;?></textarea>
   <br><br>
-  Gender:
-  <input type="radio" name="gender" <?php if (isset($gender) && $gender=="female") echo "checked";?> value="female">Female
-  <input type="radio" name="gender" <?php if (isset($gender) && $gender=="male") echo "checked";?> value="male">Male
-  <input type="radio" name="gender" <?php if (isset($gender) && $gender=="other") echo "checked";?> value="other">Other  
+  Genero:
+  <input type="radio" name="gender" <?php if (isset($gender) && $gender=="Mujer") echo "checked";?> value="Mujer">Mujer
+  <input type="radio" name="gender" <?php if (isset($gender) && $gender=="Hombre") echo "checked";?> value="Hombre">Hombre
+  <input type="radio" name="gender" <?php if (isset($gender) && $gender=="Otro") echo "checked";?> value="Otro">Otro  
   <span class="error">* <?php echo $genderErr;?></span>
   <br><br>
-  <input type="submit" name="submit" value="Submit">  
+  <input type="submit" name="submit" value="Enviar">  
 </form>
 
 <?php
-echo "<h2>Your Input:</h2>";
-echo $name;
+echo "<p class = 'resp' >Tu nombre: </p>".$name;
 echo "<br>";
-echo $email;
+echo "<p class = 'resp' >Tu apellido: </p>".$lastName;
 echo "<br>";
-echo $website;
+echo "<p class = 'resp' >Tu mail: </p>".$email;
 echo "<br>";
-echo $comment;
+echo "<p class = 'resp' >Tu sitio web: </p>".$website;
 echo "<br>";
-echo $gender;
+echo "<p class = 'resp' >Tu comentario: </p>".$comment;
+echo "<br>";
+echo "<p class = 'resp' >Tu genero: </p>".$gender;
 ?>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
