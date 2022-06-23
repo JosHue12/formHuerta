@@ -1,18 +1,10 @@
-h2 {
-    color: white;
-    padding: 20px;
-    background-color: rgb(30, 111, 241);
+body {
+    background-color: black;
 }
 
-form {
-    margin-top: 20px;
-    margin-left: 20px;
-    margin-bottom: 20px;
-}
-
-.resp {
-    display: inline;
-    margin-left: 20px;
-    color:rgb(30, 111, 241);
-    font-style: bold;
+a {
+    font-weight: bold;
+    padding: 5px;
+    text-decoration: none;
+    border: solid 3px rgb(39, 98, 217);
 }
